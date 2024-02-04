@@ -1,0 +1,19 @@
+.card-area-bot {
+  width: 56.73px;
+  height: 284px;
+  margin-left: -27px;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+}
+
+.card-area-top {
+  width: 56.73px;
+  height: 284px;
+  display: flex;
+  margin-top: -284px;
+  margin-left: -27px;
+  justify-content: start;
+  position: relative;
+  flex-direction: column;
+}

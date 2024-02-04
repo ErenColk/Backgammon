@@ -1,0 +1,17 @@
+.out-circle {
+  border: 1px solid black;
+  width: 100%;
+  height: 50px;
+  border-radius: 50%;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+}
+
+.in-circle {
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
