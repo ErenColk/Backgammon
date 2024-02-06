@@ -2,11 +2,13 @@ import React, { useContext } from 'react'
 import { PiecesContext } from '../../Context/PiecesContext';
 import "../BlackPiece.css"
 import { DiceContext } from '../../../Context/DiceContext';
+import { MoveContext } from '../../../Context/MoveContext';
 
 
 const BlackPiece3 = () => {
   const { setPiece } = useContext(PiecesContext);
   const {blackThrew} = useContext(DiceContext)
+  const {stop} = useContext(MoveContext)
 
   const dragStart = (e) => {
     const target = e.target;
@@ -21,21 +23,21 @@ const BlackPiece3 = () => {
     e.stopPropagation();
   };
 
-  const dragEvents = !blackThrew
-  ? {
-      onDragStart: dragStart,
-      onDragEnd: dragEnd,
-    }
-  : {};
+  const dragEvents = stop ?  {} : (!blackThrew
+    ? {
+        onDragStart: dragStart,
+        onDragEnd: dragEnd,
+      }
+    : {});
 
   return (
     <div
-      id="piece-3"
+      id="s-3"
       className="out-circle-dark"
-      draggable={blackThrew ? "false": "true"}
+      draggable={ stop ? "false" : (blackThrew ? "false" : "true")}
       {...dragEvents}
     >
-      <div className="in-circle-dark" draggable="false"></div>
+      
     </div>
   );
 }

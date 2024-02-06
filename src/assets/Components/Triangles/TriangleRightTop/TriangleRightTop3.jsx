@@ -1,24 +1,25 @@
 
-import React, { useContext } from "react";
+import React from "react";
 import "../Triangle.css";
-import WhitePiece3 from "../../Pieces/WhitePiece/WhitePiece3";
-import { PiecesContext } from "../../Context/PiecesContext";
 
-const TriangleRightTop3 = () => {
-  const { piece } = useContext(PiecesContext);
 
-  const drop = (e) => {
-    const target = piece;
-    target.style.display = "block";
-    e.target.appendChild(target);
+const TriangleRightTop3 = ({drop,dragOver}) => {
+  const handleDrop = (e) => {
+    drop(e);
+  };
+  const handleDragOver = (e) => {
+    dragOver(e);
   };
 
-  const dragOver = (e) => {
-    e.preventDefault();
-  };
+  
 
   return (
-    <div className="card-area-top" onDrop={drop} onDragOver={dragOver}>
+    <div
+      id="left-bot-2"
+      className="card-area-top"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
    
     </div>
   );

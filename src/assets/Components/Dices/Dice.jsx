@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Dice.css";
 import { DiceContext } from "../../Context/DiceContext";
+import { MoveContext } from "../../Context/MoveContext";
 
 const Dice = () => {
   const {
@@ -11,30 +12,28 @@ const Dice = () => {
     firstGame,
     setFirstGame,
     blackThrew,
-    setBlackThrew,
     whiteThrew,
+    setBlackThrew,
     setWhiteThrew,
   } = useContext(DiceContext);
 
+  
+  const { isClickable, setIsClickable,stop,setStop } = useContext(MoveContext);
+
   const [dice1Points, setDice1Points] = useState();
   const [dice2Points, setDice2Points] = useState();
-
   const [whoWillStart, setWhoWillStart] = useState(null);
 
   const rollTheDice = () => {
     const dice1Value = Math.floor(Math.random() * 6) + 1;
     const dice2Value = Math.floor(Math.random() * 6) + 1;
 
-    if (blackThrew) {
-      setBlackThrew(false);
-      setWhiteThrew(true);
-    } else {
-      setWhiteThrew(false);
-      setBlackThrew(true);
-    }
+    setIsClickable(false);
+    setStop(false);
+    console.log("🚀 ~ Dice ~ whiteThrew:", whiteThrew);
+    console.log("🚀 ~ rollTheDice ~ blackThrew:", blackThrew);
 
     pushPoint(dice1Value, dice2Value);
-
     setDice1(dice1Value);
     setDice2(dice2Value);
   };
@@ -75,6 +74,9 @@ const Dice = () => {
   }, [whoWillStart]);
 
   const selectPlayer = () => {
+
+
+
     if (!blackThrew) {
       const dice1Value = Math.floor(Math.random() * 6) + 1;
       pushPoint(dice1Value);
@@ -145,6 +147,7 @@ const Dice = () => {
             type="button"
             value={"Zar At"}
             onClick={rollTheDice}
+            disabled={!isClickable}
           />
         </>
       )}

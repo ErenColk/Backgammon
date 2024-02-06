@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #f3f3f3;
+  background-color: #79654a;
 }
 
 .container {
@@ -26,9 +26,11 @@ body {
   width: auto;
   height: auto;
   margin: auto;
-  padding: 13px;
+  padding: 20px;
   background-color: #4f3006;
   border-radius: 10px;
+  box-shadow: 7px 7px 8px rgba(0, 0, 0, 0.6); 
+  border: 2px solid white;
 }
 
 .framework-1 {

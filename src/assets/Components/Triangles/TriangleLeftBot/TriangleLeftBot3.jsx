@@ -1,22 +1,22 @@
-import React, { useContext } from 'react'
-import { PiecesContext } from '../../Context/PiecesContext';
 
-const TriangleLeftBot3 = () => {
-  const { piece } = useContext(PiecesContext);
+import React from "react";
 
-  const drop = (e) => {
-    const target = piece;
-    target.style.display = "block";
-    e.target.appendChild(target);
+const TriangleLeftBot3 = ({drop,dragOver}) => {
+  
+  const handleDrop = (e) => {
+    drop(e);
   };
-
-  const dragOver = (e) => {
-    e.preventDefault();
+  const handleDragOver = (e) => {
+    dragOver(e);
   };
 
   return (
-    <div id="left-bot-2" className="card-area-bot" onDrop={drop} onDragOver={dragOver}>
-    </div>
+    <div
+      id="3"
+      className="card-area-bot"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    ></div>
   );
 }
 

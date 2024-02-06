@@ -1,34 +1,43 @@
 import React, { useContext } from "react";
 import { PiecesContext } from "../../Context/PiecesContext";
+import { DiceContext } from "../../../Context/DiceContext";
+import { MoveContext } from "../../../Context/MoveContext";
 
 const WhitePiece4 = () => {
   const { setPiece } = useContext(PiecesContext);
+  const { whiteThrew } = useContext(DiceContext);
+  const {stop} = useContext(MoveContext)
 
   const dragStart = (e) => {
     const target = e.target;
     setPiece(target);
-
+    console.log("dragstart ");
     setTimeout(() => {
       target.style.display = "none";
     }, 0);
   };
 
   const dragEnd = (e) => {
-     e.stopPropagation();
+    e.stopPropagation();
   };
 
+  const dragEvents = stop
+  ? {}
+  : !whiteThrew
+  ? {
+      onDragStart: dragStart,
+      onDragEnd: dragEnd,
+    }
+  : {};
 
-  return (
-    <div
-      id="piece-4"
-      className="out-circle"
-      draggable="true"
-      onDragStart={dragStart}
-      onDragEnd={dragEnd}
-    >
-      <div className="in-circle"></div>
-    </div>
-  );
+return (
+  <div
+    id="w-4"
+    className="out-circle"
+    draggable={stop ? "false" : whiteThrew ? "false" : "true"}
+    {...dragEvents}
+  ></div>
+);
 };
 
 export default WhitePiece4;

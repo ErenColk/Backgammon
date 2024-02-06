@@ -8,6 +8,8 @@ const DiceProvider = ({ children }) => {
   const [blackThrew, setBlackThrew] = useState(false);
   const [whiteThrew, setWhiteThrew] = useState(false);
   const [firstGame,setFirstGame] = useState(true);
+  // const [firstPlayer,setFirstPlayer] = useState(false);
+  // const [secondPlayer,setSecondPlayer] = useState(false);
   return (
     <DiceContext.Provider value={{ dice1, setDice1, dice2, setDice2 ,firstGame,setFirstGame,blackThrew, setBlackThrew,whiteThrew, setWhiteThrew}}>
       {children}
