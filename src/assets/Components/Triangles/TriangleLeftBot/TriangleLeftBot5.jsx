@@ -16,8 +16,8 @@ const TriangleLeftBot5 = ({drop,dragOver}) => {
 
   return (
     <div
-      id="left-bot-2"
-      className="card-area-bot"
+    id="8"
+    className="card-area-bot"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >

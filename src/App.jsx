@@ -1,26 +1,41 @@
+import { useContext } from "react";
 import "./App.css";
-import { PiecesProvider } from "./assets/Components/Context/PiecesContext";
-
-import { DiceProvider } from "./assets/Context/DiceContext";
-import { MoveProvider } from "./assets/Context/MoveContext";
 import TrianglesPage from "./assets/Pages/TrianglesPage";
+import { MoveContext } from "./assets/Context/MoveContext";
 
 function App() {
+  const { wrongMove, setWrongMove } = useContext(MoveContext);
+
+  const handleDrop = (e) => {
+    e.stopPropagation(); // Yayılma durduruluyor
+    setWrongMove(true);
+    console.log("handledrop çalıştı");
+  };
+
+  const handleDragOver = (e) => {
+    e.stopPropagation(); // Yayılma durduruluyor
+    console.log("handledragover çalıştı");
+    e.preventDefault();
+
+    if (e.target.classList.contains('container')) {
+      e.preventDefault();
+      e.target.classList.add('drag-over'); 
+    }
+  };
+
   return (
     <>
-      <MoveProvider>
-        <PiecesProvider>
-          <DiceProvider>
-            <div className="container">
-              <div className="framework">
-                <div className="framework-1">
-                <TrianglesPage></TrianglesPage>
-                </div>
-              </div>
-            </div>
-          </DiceProvider>
-        </PiecesProvider>
-      </MoveProvider>
+      <div
+        className="container"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
+        <div className="framework">
+          <div className="framework-1">
+            <TrianglesPage></TrianglesPage>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

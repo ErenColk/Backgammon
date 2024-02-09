@@ -11,8 +11,8 @@ const TraingleLeftTop4 = ({drop,dragOver}) => {
 
   return (
     <div
-      id="left-bot-2"
-      className="card-area-top"
+    id="16"
+    className="card-area-top"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     ></div>

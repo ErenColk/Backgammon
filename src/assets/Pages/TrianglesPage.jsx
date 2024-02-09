@@ -33,32 +33,54 @@ import { DiceContext } from "../Context/DiceContext";
 
 const TrianglesPage = () => {
   const { piece, setPiece } = useContext(PiecesContext);
-  const { moveCount, setMoveCount, isClickable, setIsClickable,setStop } =
-    useContext(MoveContext);
+  const {
+    moveCount,
+    setMoveCount,
+    setIsClickable,
+    setStop,
+    setMoveMade,
+    prevParentNode,
+    setPrevParentNode,
+    wrongMove,
+    setWrongMove,
+  } = useContext(MoveContext);
   const { blackThrew, setBlackThrew, whiteThrew, setWhiteThrew } =
     useContext(DiceContext);
 
   const drop = (e) => {
+    e.preventDefault(); //eklendi
+    e.stopPropagation(); //eklendi
     const target = piece;
-    console.log("🚀 ~ drop ~ target:", target);
-
     if (target !== null) {
       setMoveCount((prevCount) => prevCount + 1);
-
+      setMoveMade(true);
       const droppedArea = e.target;
       const childNodes = droppedArea.childNodes;
+
       childNodes.forEach((childNode) => {
         if (childNode.id === target.id) {
           console.log("aynı taş koydun");
+          setMoveMade(false);
           setMoveCount((prevCount) => prevCount - 1);
         }
       });
       target.style.display = "block";
       e.target.appendChild(target);
-
       setPiece(null);
     }
   };
+
+  //DIŞARI ATILAN ZARI GERİ GETİRİR
+  useEffect(() => {
+    if (prevParentNode !== null && wrongMove) {
+      const target = piece;
+      target.style.display = "block";
+      prevParentNode.appendChild(target);
+      setWrongMove(false);  
+    }
+  }, [wrongMove]);
+
+
 
   useEffect(() => {
     if (moveCount === 2) {
@@ -72,13 +94,16 @@ const TrianglesPage = () => {
       setIsClickable(true);
       setMoveCount(0);
       setPiece(null);
-      setStop(true)
+      setStop(true);
+      setMoveMade(false);
+
       console.log("iki hamle yaptın ");
     }
   }, [moveCount]);
 
   const dragOver = (e) => {
     e.preventDefault();
+    e.stopPropagation();
   };
 
   return (
