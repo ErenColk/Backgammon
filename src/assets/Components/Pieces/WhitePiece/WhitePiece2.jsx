@@ -6,12 +6,14 @@ import { MoveContext } from "../../../Context/MoveContext";
 const WhitePiece2 = () => {
   const { setPiece } = useContext(PiecesContext);
   const { whiteThrew, dice1, dice2 } = useContext(DiceContext);
-  const { stop, moveMade, setMoveMade, setPrevParentNode } =
+  const { stop, moveMade, setMoveMade, setPrevParentNode, setWrongMove,
+    setMoveCount } =
     useContext(MoveContext);
   const [prevParentId, setPrevParentId] = useState();
 
   const firstDicePlayer = useRef("false");
   const secondDicePlayer = useRef("false");
+
 
   const dragStart = (e) => {
     const target = e.target;
@@ -32,6 +34,7 @@ const WhitePiece2 = () => {
     let firstSelectedTriangle = document.getElementById(`${parentId}`);
     let secondSelectedTriangle = document.getElementById(`${parentId}`);
 
+
     if (!moveMade) {
       //Gelen zarla birlikte divi alıyorum. hamle yapıldıysa buraya girmez.
       console.log("hamle yapılan yere girdi");
@@ -42,6 +45,7 @@ const WhitePiece2 = () => {
         `${parseInt(dice2, 10) + parseInt(parentId, 10)}`
       );
     }
+
 
     if (firstDicePlayer.current == "true") {
       firstSelectedTriangle = document.getElementById(
@@ -56,30 +60,36 @@ const WhitePiece2 = () => {
     }
 
     if (startOrFinished) {
-      firstSelectedTriangle.style.backgroundColor = "rgba(247, 173, 62, 0.5)";
-      secondSelectedTriangle.style.backgroundColor = "rgba(247, 173, 62, 0.5)";
-    } else {
-      firstSelectedTriangle.style.backgroundColor = "";
-      console.log(
-        "🚀 ~ changeTriangleColor ~ firstSelectedTriangle:",
-        firstSelectedTriangle
-      );
-      console.log(
-        "🚀 ~ changeTriangleColor ~ secondSelectedTriangle:",
-        secondSelectedTriangle
-      );
-      secondSelectedTriangle.style.backgroundColor = "";
+      firstSelectedTriangle &&
+      (firstSelectedTriangle.style.backgroundColor =
+        "rgba(247, 173, 62, 0.5)");
 
+    secondSelectedTriangle &&
+      (secondSelectedTriangle.style.backgroundColor =
+        "rgba(247, 173, 62, 0.5)");
+    } else {     
+      clearTriangle();
       setMoveMade(false);
     }
   };
 
+
+  const clearTriangle = () =>{
+    for (let index = 1; index <= 24; index++) {
+      document.getElementById(`${parseInt(index)}`).style.backgroundColor = "";      
+     }
+  }
+
+
   const dragEnd = (e) => {
     const parentDiv = e.target.parentNode;
     const parentId = parentDiv.id;
-    console.log("🚀 ~ dragEnd ~ parentId:", parentId);
+    
+    if (e.target.parentNode.classList.contains("out-circle")) {
+      setMoveCount((prevCount) => prevCount - 1);
+      setWrongMove(true);
+    }
 
-    console.log("🚀 ~ dragEnd ~ e.target:", e.target);
     if (
       parseInt(dice1, 10) + parseInt(prevParentId, 10) ===
       parseInt(parentId, 10)
@@ -98,7 +108,6 @@ const WhitePiece2 = () => {
     changeTriangleColor(e, false);
     e.stopPropagation();
   };
-
 
 
   const dragEvents = stop

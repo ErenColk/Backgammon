@@ -40,19 +40,20 @@ const TrianglesPage = () => {
     setStop,
     setMoveMade,
     prevParentNode,
-    setPrevParentNode,
     wrongMove,
     setWrongMove,
   } = useContext(MoveContext);
-  const { blackThrew, setBlackThrew, whiteThrew, setWhiteThrew } =
-    useContext(DiceContext);
+  const { blackThrew, setBlackThrew, setWhiteThrew } = useContext(DiceContext);
 
   const drop = (e) => {
     e.preventDefault(); //eklendi
     e.stopPropagation(); //eklendi
+
     const target = piece;
+
     if (target !== null) {
       setMoveCount((prevCount) => prevCount + 1);
+      console.log("setmove true yaptı");
       setMoveMade(true);
       const droppedArea = e.target;
       const childNodes = droppedArea.childNodes;
@@ -66,21 +67,22 @@ const TrianglesPage = () => {
       });
       target.style.display = "block";
       e.target.appendChild(target);
-      setPiece(null);
+      // setPiece(null);
     }
   };
 
+  //TODOOO : TAŞ ÜSTÜNE TAŞ KONULUNCA SEÇİLİ YERLER SİLİNMİYOR ONU DÜZELT.
   //DIŞARI ATILAN ZARI GERİ GETİRİR
   useEffect(() => {
     if (prevParentNode !== null && wrongMove) {
+      console.log("ZARI GETİREN EFFECT ÇALIŞTI");
       const target = piece;
       target.style.display = "block";
       prevParentNode.appendChild(target);
-      setWrongMove(false);  
+      setMoveMade(false);
+      setWrongMove(false);
     }
   }, [wrongMove]);
-
-
 
   useEffect(() => {
     if (moveCount === 2) {

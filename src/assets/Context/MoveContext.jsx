@@ -9,6 +9,8 @@ const MoveProvider = ({ children }) => {
   const [moveMade, setMoveMade] = useState(false);
   const [wrongMove, setWrongMove] = useState(false);
   const [prevParentNode, setPrevParentNode] = useState(null);
+  const [firstMove, setFirstMove] = useState(null);
+  const [secondMove, setSecondMove] = useState(null);
   return (
     <MoveContext.Provider
       value={{
@@ -24,6 +26,10 @@ const MoveProvider = ({ children }) => {
         setWrongMove,
         prevParentNode,
         setPrevParentNode,
+        firstMove,
+        setFirstMove,
+        secondMove,
+        setSecondMove,
       }}
     >
       {children}

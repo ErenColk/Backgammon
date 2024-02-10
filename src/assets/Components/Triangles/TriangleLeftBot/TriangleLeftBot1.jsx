@@ -24,11 +24,11 @@ const TriangleLeftBot1 = ({drop,dragOver}) => {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <WhitePiece1></WhitePiece1>
-      <WhitePiece2></WhitePiece2>
-      <WhitePiece3></WhitePiece3>
-      <WhitePiece4></WhitePiece4>
-      <WhitePiece5></WhitePiece5>
+      <WhitePiece1/>
+      <WhitePiece2/>
+      <WhitePiece3/>
+      <WhitePiece4/>
+      <WhitePiece5/>
     </div>
   );
 };

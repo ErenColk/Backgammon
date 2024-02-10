@@ -19,6 +19,11 @@ body {
   align-items: center;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+
 .framework {
   display: flex;
   justify-content: center;

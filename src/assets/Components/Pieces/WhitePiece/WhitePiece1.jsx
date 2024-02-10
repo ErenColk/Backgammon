@@ -6,8 +6,17 @@ import { MoveContext } from "../../../Context/MoveContext";
 const WhitePiece1 = () => {
   const { setPiece } = useContext(PiecesContext);
   const { whiteThrew, dice1, dice2 } = useContext(DiceContext);
-  const { stop, moveMade, setMoveMade, setPrevParentNode } =
-    useContext(MoveContext);
+  const {
+    stop,
+    moveMade,
+    setMoveMade,
+    prevParentNode,
+    setPrevParentNode,
+    wrongMove,
+    setWrongMove,
+    setMoveCount,
+  } = useContext(MoveContext);
+
   const [prevParentId, setPrevParentId] = useState();
 
   const firstDicePlayer = useRef("false");
@@ -56,30 +65,34 @@ const WhitePiece1 = () => {
     }
 
     if (startOrFinished) {
-      firstSelectedTriangle.style.backgroundColor = "rgba(247, 173, 62, 0.5)";
-      secondSelectedTriangle.style.backgroundColor = "rgba(247, 173, 62, 0.5)";
-    } else {
-      firstSelectedTriangle.style.backgroundColor = "";
-      console.log(
-        "🚀 ~ changeTriangleColor ~ firstSelectedTriangle:",
-        firstSelectedTriangle
-      );
-      console.log(
-        "🚀 ~ changeTriangleColor ~ secondSelectedTriangle:",
-        secondSelectedTriangle
-      );
-      secondSelectedTriangle.style.backgroundColor = "";
+      firstSelectedTriangle &&
+      (firstSelectedTriangle.style.backgroundColor =
+        "rgba(247, 173, 62, 0.5)");
 
+    secondSelectedTriangle &&
+      (secondSelectedTriangle.style.backgroundColor =
+        "rgba(247, 173, 62, 0.5)");
+    } else {
+      clearTriangle();
       setMoveMade(false);
+    }
+  };
+
+  const clearTriangle = () => {
+    for (let index = 1; index <= 24; index++) {
+      document.getElementById(`${parseInt(index)}`).style.backgroundColor = "";
     }
   };
 
   const dragEnd = (e) => {
     const parentDiv = e.target.parentNode;
     const parentId = parentDiv.id;
-    console.log("🚀 ~ dragEnd ~ parentId:", parentId);
 
-    console.log("🚀 ~ dragEnd ~ e.target:", e.target);
+    if (e.target.parentNode.classList.contains("out-circle")) {
+      setMoveCount((prevCount) => prevCount - 1);
+      setWrongMove(true);
+    }
+
     if (
       parseInt(dice1, 10) + parseInt(prevParentId, 10) ===
       parseInt(parentId, 10)
@@ -93,14 +106,10 @@ const WhitePiece1 = () => {
       console.log("ikinci zarı oynadı");
       firstDicePlayer.current = "true";
     }
-
-    console.log("dragend ");
     changeTriangleColor(e, false);
     e.stopPropagation();
   };
 
-
-  
   const dragEvents = stop
     ? {}
     : !whiteThrew
