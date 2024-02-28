@@ -45,42 +45,36 @@ const TrianglesPage = () => {
   } = useContext(MoveContext);
   const { blackThrew, setBlackThrew, setWhiteThrew } = useContext(DiceContext);
 
-  const drop = (e) => {
+  const drop = async (e) => {
     e.preventDefault(); //eklendi
     e.stopPropagation(); //eklendi
 
     const target = piece;
-
     if (target !== null) {
-      setMoveCount((prevCount) => prevCount + 1);
-      console.log("setmove true yaptı");
       setMoveMade(true);
       const droppedArea = e.target;
       const childNodes = droppedArea.childNodes;
 
-      childNodes.forEach((childNode) => {
+      await childNodes.forEach((childNode) => {
         if (childNode.id === target.id) {
-          console.log("aynı taş koydun");
           setMoveMade(false);
-          setMoveCount((prevCount) => prevCount - 1);
+          setWrongMove(true);
         }
       });
       target.style.display = "block";
       e.target.appendChild(target);
-      // setPiece(null);
     }
   };
 
-  //TODOOO : TAŞ ÜSTÜNE TAŞ KONULUNCA SEÇİLİ YERLER SİLİNMİYOR ONU DÜZELT.
-  //DIŞARI ATILAN ZARI GERİ GETİRİR
   useEffect(() => {
-    if (prevParentNode !== null && wrongMove) {
-      console.log("ZARI GETİREN EFFECT ÇALIŞTI");
+
+    if (prevParentNode !== null && wrongMove && piece !== null) {
       const target = piece;
       target.style.display = "block";
       prevParentNode.appendChild(target);
       setMoveMade(false);
-      setWrongMove(false);
+      setPiece(null);
+      setWrongMove(null);
     }
   }, [wrongMove]);
 
@@ -98,8 +92,6 @@ const TrianglesPage = () => {
       setPiece(null);
       setStop(true);
       setMoveMade(false);
-
-      console.log("iki hamle yaptın ");
     }
   }, [moveCount]);
 

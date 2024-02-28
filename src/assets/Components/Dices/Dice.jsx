@@ -30,12 +30,13 @@ const Dice = () => {
 
     setIsClickable(false);
     setStop(false);
-    console.log("🚀 ~ Dice ~ whiteThrew:", whiteThrew);
-    console.log("🚀 ~ rollTheDice ~ blackThrew:", blackThrew);
+
 
     pushPoint(dice1Value, dice2Value);
-    setDice1(dice1Value);
-    setDice2(dice2Value);
+    // setDice1(dice1Value);
+    setDice1(1);
+    // setDice2(dice2Value);
+    setDice2(1);
   };
 
   useEffect(() => {

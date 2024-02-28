@@ -7,10 +7,14 @@ const MoveProvider = ({ children }) => {
   const [isClickable, setIsClickable] = useState(true);
   const [stop, setStop] = useState(true);
   const [moveMade, setMoveMade] = useState(false);
-  const [wrongMove, setWrongMove] = useState(false);
+  const [wrongMove, setWrongMove] = useState(null);
   const [prevParentNode, setPrevParentNode] = useState(null);
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
+  const [putSamePlace, setPutSamePlace] = useState(null);
+  const [thrownOut, setThrownOut] = useState(null);
+  const [playedWrong, setPlayedWrong] = useState(null);
+
   return (
     <MoveContext.Provider
       value={{
@@ -30,6 +34,12 @@ const MoveProvider = ({ children }) => {
         setFirstMove,
         secondMove,
         setSecondMove,
+        putSamePlace,
+        setPutSamePlace,
+        thrownOut,
+        setThrownOut,
+        playedWrong,
+        setPlayedWrong,
       }}
     >
       {children}

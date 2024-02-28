@@ -4,22 +4,21 @@ import TrianglesPage from "./assets/Pages/TrianglesPage";
 import { MoveContext } from "./assets/Context/MoveContext";
 
 function App() {
-  const { wrongMove, setWrongMove } = useContext(MoveContext);
-
+  const { piece,wrongMove, moveCount, setWrongMove, setPlayedWrong, setMoveCount } =
+  useContext(MoveContext);
+  
   const handleDrop = (e) => {
     e.stopPropagation(); // Yayılma durduruluyor
-    setWrongMove(true);
-    console.log("handledrop çalıştı");
+        setWrongMove(true);
   };
 
   const handleDragOver = (e) => {
     e.stopPropagation(); // Yayılma durduruluyor
-    console.log("handledragover çalıştı");
     e.preventDefault();
 
-    if (e.target.classList.contains('container')) {
+    if (e.target.classList.contains("container")) {
       e.preventDefault();
-      e.target.classList.add('drag-over'); 
+      e.target.classList.add("drag-over");
     }
   };
 
