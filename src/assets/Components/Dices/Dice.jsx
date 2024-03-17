@@ -75,9 +75,6 @@ const Dice = () => {
   }, [whoWillStart]);
 
   const selectPlayer = () => {
-
-
-
     if (!blackThrew) {
       const dice1Value = Math.floor(Math.random() * 6) + 1;
       pushPoint(dice1Value);
